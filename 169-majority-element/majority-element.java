@@ -1,17 +1,12 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        int majority = nums[0], arr = 1;// We can also write votes in place of arr
-        for(int i = 1; i < nums.length; i++){
-            if (arr == 0) {
-                arr++;
-                majority = nums[i];
+        int candidate = 0, count = 0;
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
             }
-            else if (majority == nums[i]){
-                arr++;
-            }
-            else
-                arr--;
+            count += (num == candidate) ? 1 : -1;
         }
-        return majority;
+        return candidate;
     }
 }
