@@ -3,18 +3,20 @@ import java.util.*;
 class RandomizedSet {
     private HashMap<Integer, Integer> map; 
     private List<Integer> list; 
+    private Random random; 
 
     public RandomizedSet() {
         map = new HashMap<>();
         list = new ArrayList<>();
+        random = new Random();
     }
     
     public boolean insert(int val) {
         if (map.containsKey(val)) {
             return false; 
         }
-        list.add(val); // Add to the list
-        map.put(val, list.size() - 1); // Map the value to its index in the list
+        list.add(val); 
+        map.put(val, list.size() - 1); 
         return true;
     }
     
@@ -32,15 +34,18 @@ class RandomizedSet {
     }
     
     public int getRandom() {
-        Random random = new Random();
         return list.get(random.nextInt(list.size()));
     }
 }
 
 /**
  * Example Usage:
- * RandomizedSet obj = new RandomizedSet();
- * boolean param_1 = obj.insert(val);
- * boolean param_2 = obj.remove(val);
- * int param_3 = obj.getRandom();
+ * RandomizedSet randomizedSet = new RandomizedSet();
+ * System.out.println(randomizedSet.insert(1)); // true
+ * System.out.println(randomizedSet.remove(2)); // false
+ * System.out.println(randomizedSet.insert(2)); // true
+ * System.out.println(randomizedSet.getRandom()); // 1 or 2
+ * System.out.println(randomizedSet.remove(1)); // true
+ * System.out.println(randomizedSet.insert(2)); // false
+ * System.out.println(randomizedSet.getRandom()); // 2
  */
