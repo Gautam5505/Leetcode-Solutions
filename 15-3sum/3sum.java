@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
@@ -24,16 +22,7 @@ public class Solution {
                 }
             }
         }
-        
         return result;
     }
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] nums1 = {-1, 0, 1, 2, -1, -4};
-        System.out.println(solution.threeSum(nums1)); 
-        int[] nums2 = {0, 1, 1};
-        System.out.println(solution.threeSum(nums2));
-        int[] nums3 = {0, 0, 0};
-        System.out.println(solution.threeSum(nums3));
-    }
+    
 }
