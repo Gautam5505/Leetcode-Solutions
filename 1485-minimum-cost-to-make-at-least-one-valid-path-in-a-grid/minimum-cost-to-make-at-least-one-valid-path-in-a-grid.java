@@ -1,45 +1,31 @@
 class Solution {
-    private static final int[][] DIRECTIONS = {{0,1}, {0,-1}, {1,0}, {-1,0}};
     public int minCost(int[][] grid) {
-
-        int m = grid.length;
-        int n = grid[0].length;
-
-        int[][] costs = new int[m][n];
-        for(int[] c : costs) Arrays.fill(c, Integer.MAX_VALUE);
-
-        costs[0][0] =0;
-
-
-        PriorityQueue<int[]> heap = new PriorityQueue<>((a,b) -> a[2] - b[2]);
-        heap.offer(new int[]{0, 0, 0});
-
-        while(!heap.isEmpty()) {
-            int[] curr = heap.poll();
-            int x = curr[0];
-            int y = curr[1];
-            int cost = curr[2];
-
-            if(x == m-1 && y == n-1) return cost;
-
-
-            for(int i = 0; i<4; i++) {
-                int[] dir = DIRECTIONS[i];
-                int newX = x + dir[0];
-                int newY = y + dir[1];
-
-                if(newX < 0 || newY < 0 || newX >= m || newY >=n) continue;
-
-                int newCost = cost + (i+1 == grid[x][y] ? 0 : 1);
-                if(costs[newX][newY] > newCost) {
-                    costs[newX][newY] = newCost;
-                    heap.offer(new int[]{newX, newY, newCost});
+        int m = grid.length, n = grid[0].length; 
+        boolean[][] vis = new boolean[m][n]; 
+        Deque<int[]> q = new ArrayDeque<>();
+        q.offer(new int[] {0, 0, 0});
+        int[][] dirs = {{0, 0}, {0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        while (!q.isEmpty()) {
+            int[] p = q.poll(); 
+            int i = p[0], j = p[1], d = p[2]; 
+            if (i == m - 1 && j == n - 1) {
+                return d;
+            }
+            if (vis[i][j]) {
+                continue;
+            }
+            vis[i][j] = true;
+            for (int k = 1; k <= 4; ++k) {
+                int x = i + dirs[k][0], y = j + dirs[k][1];
+                if (x >= 0 && x < m && y >= 0 && y < n) {
+                    if (grid[i][j] == k) {
+                        q.offerFirst(new int[] {x, y, d});
+                    } else {
+                        q.offer(new int[] {x, y, d + 1});
+                    }
                 }
-
             }
         }
-
         return -1;
-        
     }
 }
